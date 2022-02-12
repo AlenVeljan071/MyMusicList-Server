@@ -16,6 +16,7 @@ namespace MyMusicList_Server.Models
         [StringLength(50)]
         public string Artist { get; set; }
         [Url]
+        [Required]
         public string Url { get; set; }
         [Required]
         [Range(1, 5)]
