@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using ImageUploader;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyMusicList_Server.Data;
 using MyMusicList_Server.Models;
@@ -6,8 +8,10 @@ using MyMusicList_Server.RequestModel;
 using MyMusicList_Server.ResponseModel;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
 
 namespace MyMusicList_Server.Controllers
 {
@@ -86,37 +90,53 @@ namespace MyMusicList_Server.Controllers
         // POST: api/Categories
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<CategoryResponseModel>> PostCategory(CategoryRequestModel category)
+        public async Task<ActionResult<CategoryResponseModel>> PostCategory([FromForm]CategoryRequestModel category, IFormFile image)
         {
-            var dbCategory = new Category
+          
+            var stream = new MemoryStream();
+            image.CopyTo(stream);
+            var file = $"{category.ImageUrl}.jpg";
+            var folder = "wwwroot";
+            var response = FilesHelper.UploadImage(stream, folder, file);
+            if (!response)
             {
-                CategoryId = Guid.NewGuid().ToString(),
-                CategoryName = category.CategoryName
-            };
-            _context.Categories.Add(dbCategory);
-
-            var categoryRes = new CategoryResponseModel
-            {
-                CategoryId = dbCategory.CategoryId,
-                CategoryName = dbCategory.CategoryName,
-            };
-            try
-            {
-                await _context.SaveChangesAsync();
+                return BadRequest();
             }
-            catch (DbUpdateException)
+            else
             {
-                if (CategoryExists(dbCategory.CategoryId))
+                var dbCategory = new Category
                 {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                    CategoryId = Guid.NewGuid().ToString(),
+                    CategoryName = category.CategoryName,
+                    ImageUrl = file,
+                };
+                _context.Categories.Add(dbCategory);
 
-            return CreatedAtAction("GetCategory", new { id = dbCategory.CategoryId }, categoryRes);
+                var categoryRes = new CategoryResponseModel
+                {
+                    CategoryId = dbCategory.CategoryId,
+                    CategoryName = dbCategory.CategoryName,
+                };
+                try
+                {
+                    await _context.SaveChangesAsync();
+                }
+                catch (DbUpdateException)
+                {
+                    if (CategoryExists(dbCategory.CategoryId))
+                    {
+                        return Conflict();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return CreatedAtAction("GetCategory", new { id = dbCategory.CategoryId }, categoryRes);
+            }
+           
+
+            
         }
 
         // DELETE: api/Categories/5

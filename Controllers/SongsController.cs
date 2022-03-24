@@ -29,6 +29,21 @@ namespace MyMusicList_Server.Controllers
             return await _context.Songs.ToListAsync();
         }
 
+        [HttpGet("favorite")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetSongsFavorite()
+        {
+            var songsByCategory = await _context.Songs.Where(x => x.IsAFavorite == true).ToListAsync();
+            return songsByCategory;
+        }
+
+        // GET: api/SongsByCategory
+        [HttpGet("byCategory/{categoryId}")]
+        public async Task<ActionResult<IEnumerable<Song>>> GetSongsByCategory(string categoryId)
+        {
+            var songsByCategory = await _context.Songs.Where(x=>x.CategoryId == categoryId).ToListAsync();
+            return songsByCategory;
+        }
+
         // GET: api/Songs/5
         [HttpGet("{id}")]
         public ActionResult<SongResponseModel> GetSong(string id)
@@ -147,10 +162,10 @@ namespace MyMusicList_Server.Controllers
         }
 
         // DELETE: api/Songs/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteSong(string id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSong(SongResponseModel songRes)
         {
-            var song = await _context.Songs.FindAsync(id);
+            var song = await _context.Songs.FindAsync(songRes.SongId);
             if (song == null)
             {
                 return NotFound();

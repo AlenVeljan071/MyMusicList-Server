@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyMusicList_Server.RequestModel
 {
@@ -7,5 +8,6 @@ namespace MyMusicList_Server.RequestModel
         [Required]
         [StringLength(50)]
         public string CategoryName { get; set; }
+        public string ImageUrl { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace MyMusicList_Server.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-            .UseSqlite(@"Data Source = MusicListDb.db;");
+            .UseSqlite(@"Data Source = MyMusicDb.db;");
         }
 
         public DbSet<Category> Categories { get; set; }

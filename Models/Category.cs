@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyMusicList_Server.Models
 {
@@ -11,6 +12,11 @@ namespace MyMusicList_Server.Models
         [Required]
         [StringLength(50)]
         public string CategoryName { get; set; }
+        [Url]
+        [Required]
+        public string ImageUrl { get; set; }
+        [NotMapped]
+        public byte[] ImageArray { get; set; }
 
         public ICollection<Song> Songs { get; set; }
 
