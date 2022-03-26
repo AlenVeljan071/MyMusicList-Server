@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace MyMusicList_Server.ResponseModel
+﻿namespace MyMusicList_Server.ResponseModel
 {
-    public class SongResponseModel
+    public class Song_Response_Model
     {
         public string SongId { get; set; }
         public string CategoryId { get; set; }

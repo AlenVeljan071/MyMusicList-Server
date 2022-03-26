@@ -1,8 +1,4 @@
-﻿
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace MyMusicList_Server.Models
+﻿namespace MyMusicList_Server.Models
 {
     public class Song
     {

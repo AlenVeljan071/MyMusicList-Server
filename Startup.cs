@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using MyMusicList_Server.Data;
 
 namespace MyMusicList_Server
 {
@@ -23,6 +22,8 @@ namespace MyMusicList_Server
 
             services.AddControllers();
             services.AddDbContext<DbInteractorSqlite>();
+            services.AddScoped<ISong_Repository, Song_Repository>();
+            services.AddScoped<ICategory_Repository, Category_Repository>();
             // services.AddDbContext<DbInteractor>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(c =>
             {
@@ -46,7 +47,7 @@ namespace MyMusicList_Server
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-               
+
             }
             app.UseSwagger();
             app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MyMusicList_Server v1"));

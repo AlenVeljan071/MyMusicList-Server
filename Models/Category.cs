@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MyMusicList_Server.Models
+﻿namespace MyMusicList_Server.Models
 {
     public class Category
     {

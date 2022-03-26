@@ -1,10 +1,6 @@
-﻿
-using System;
-using System.ComponentModel.DataAnnotations;
-
-namespace MyMusicList_Server.RequestModel
+﻿namespace MyMusicList_Server.RequestModel
 {
-    public class SongRequestModel
+    public class Song_Request_Model
     {
         [Required]
         [StringLength(50)]

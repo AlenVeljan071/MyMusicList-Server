@@ -1,0 +1,17 @@
+﻿global using ImageUploader;
+global using Microsoft.AspNetCore.Http;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.EntityFrameworkCore;
+global using MyMusicList_Server.Data;
+global using MyMusicList_Server.Extensions;
+global using MyMusicList_Server.Models;
+global using MyMusicList_Server.Repository;
+global using MyMusicList_Server.RequestModel;
+global using MyMusicList_Server.ResponseModel;
+global using System;
+global using System.Collections.Generic;
+global using System.ComponentModel.DataAnnotations;
+global using System.ComponentModel.DataAnnotations.Schema;
+global using System.IO;
+global using System.Linq;
+global using System.Threading.Tasks;
