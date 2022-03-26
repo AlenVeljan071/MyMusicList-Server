@@ -56,7 +56,7 @@
         public async Task<ActionResult<Song_Response_Model>> PostSong(Song_Request_Model song)
         {
             var songRes = await _repository.PostSong(song);
-            if (songRes != null) return BadRequest();
+            if (songRes == null) return BadRequest();
             return CreatedAtAction("GetSong", new { id = songRes.SongId }, songRes.SongResponse());
         }
 
