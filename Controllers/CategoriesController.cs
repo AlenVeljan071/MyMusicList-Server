@@ -15,14 +15,14 @@
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
         {
-            return Ok(await _repository.GetCategories());
+            return Ok(await _repository.GetCategoriesAsync());
         }
 
         // GET: api/Categories/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Category_Response_Model>> GetCategory(string id)
         {
-            var categoryRes = await _repository.GetCategory(id);
+            var categoryRes = await _repository.GetCategoryAsync(id);
             if (categoryRes == null) return NotFound();
             return categoryRes.CategoryResponse();
         }
@@ -32,7 +32,7 @@
         [HttpPut]
         public async Task<IActionResult> PutCategory(Category_Response_Model category)
         {
-            var response = await _repository.PutCategory(category);
+            var response = await _repository.PutCategoryAsync(category);
             if (response == null) return BadRequest();
             return NoContent();
         }
@@ -42,16 +42,16 @@
         [HttpPost]
         public async Task<ActionResult<Category_Response_Model>> PostCategory([FromForm] Category_Request_Model category, IFormFile image)
         {
-            var response = await _repository.PostCategory(category, image);
+            var response = await _repository.PostCategoryAsync(category, image);
             if (response == null) return BadRequest();
-            return CreatedAtAction("GetCategory", new { id = response.CategoryId }, response.CategoryResponse());
+            return CreatedAtAction("GetCategoryAsync", new { id = response.CategoryId }, response.CategoryResponse());
         }
 
         // DELETE: api/Categories/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory(string id)
         {
-            var response = await _repository.DeleteCategory(id);
+            var response = await _repository.DeleteCategoryAsync(id);
             if (!response) return BadRequest();
             return NoContent();
         }

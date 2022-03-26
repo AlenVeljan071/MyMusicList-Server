@@ -7,7 +7,7 @@
         {
             _context = context;
         }
-        public async Task<bool> DeleteSong(string id)
+        public async Task<bool> DeleteSongAsync(string id)
         {
             var song = await _context.Songs.FindAsync(id);
             _context.Songs.Remove(song);
@@ -22,27 +22,27 @@
             return true;
         }
 
-        public async Task<Song> GetSong(string id)
+        public async Task<Song> GetSongAsync(string id)
         {
             var song = await _context.Songs.Where(x => x.SongId == id).FirstOrDefaultAsync();
             return song;
         }
 
-        public async Task<IEnumerable<Song>> GetSongs()
+        public async Task<IEnumerable<Song>> GetSongsAsync()
         {
             return await _context.Songs.ToListAsync();
         }
 
-        public async Task<IEnumerable<Song>> GetSongsByCategory(string categoryId)
+        public async Task<IEnumerable<Song>> GetSongsByCategoryAsync(string categoryId)
         {
             return await _context.Songs.Where(x => x.CategoryId == categoryId).ToListAsync();
         }
 
-        public async Task<IEnumerable<Song>> GetSongsFavorite()
+        public async Task<IEnumerable<Song>> GetSongsFavoriteAsync()
         {
             return await _context.Songs.Where(x => x.IsAFavorite == true).ToListAsync();
         }
-        public async Task<Song> PostSong(Song_Request_Model song)
+        public async Task<Song> PostSongAsync(Song_Request_Model song)
         {
             var dbSong = new Song
             {
@@ -67,7 +67,7 @@
             return dbSong;
         }
 
-        public async Task<Song> PutSong(Song_Response_Model song)
+        public async Task<Song> PutSongAsync(Song_Response_Model song)
         {
             var songF = _context.Songs.Where(x => x.SongId == song.SongId).FirstOrDefault();
             if (songF == null) return null;

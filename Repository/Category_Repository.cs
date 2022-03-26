@@ -7,7 +7,7 @@
         {
             _context = context;
         }
-        public async Task<bool> DeleteCategory(string id)
+        public async Task<bool> DeleteCategoryAsync(string id)
         {
             var category = await _context.Categories.FindAsync(id);
             _context.Categories.Remove(category);
@@ -22,18 +22,18 @@
             return true;
         }
 
-        public async Task<Category> GetCategory(string id)
+        public async Task<Category> GetCategoryAsync(string id)
         {
             var category = await _context.Categories.Where(x => x.CategoryId == id).FirstOrDefaultAsync();
             return category;
         }
 
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<IEnumerable<Category>> GetCategoriesAsync()
         {
             return await _context.Categories.ToListAsync();
         }
 
-        public async Task<Category> PostCategory(Category_Request_Model category, IFormFile image)
+        public async Task<Category> PostCategoryAsync(Category_Request_Model category, IFormFile image)
         {
             var stream = new MemoryStream();
             image.CopyTo(stream);
@@ -59,7 +59,7 @@
             return dbCategory;
         }
 
-        public async Task<Category> PutCategory(Category_Response_Model category)
+        public async Task<Category> PutCategoryAsync(Category_Response_Model category)
         {
             var cat = _context.Categories.Where(x => x.CategoryId == category.CategoryId).FirstOrDefault();
             if (cat == null) return null;
