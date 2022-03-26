@@ -57,7 +57,7 @@
         {
             var songRes = await _repository.PostSongAsync(song);
             if (songRes == null) return BadRequest();
-            return CreatedAtAction("GetSongAsync", new { id = songRes.SongId }, songRes.SongResponse());
+            return CreatedAtAction("GetSong", new { id = songRes.SongId }, songRes.SongResponse());
         }
 
         // DELETE: api/Songs/5

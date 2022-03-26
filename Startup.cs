@@ -20,7 +20,9 @@ namespace MyMusicList_Server
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+            services.AddControllers(options => {
+                options.SuppressAsyncSuffixInActionNames = false;
+            });
             services.AddDbContext<DbInteractorSqlite>();
             services.AddScoped<ISong_Repository, Song_Repository>();
             services.AddScoped<ICategory_Repository, Category_Repository>();

@@ -44,7 +44,7 @@
         {
             var response = await _repository.PostCategoryAsync(category, image);
             if (response == null) return BadRequest();
-            return CreatedAtAction("GetCategoryAsync", new { id = response.CategoryId }, response.CategoryResponse());
+            return CreatedAtAction("GetCategory", new { id = response.CategoryId }, response.CategoryResponse());
         }
 
         // DELETE: api/Categories/5
