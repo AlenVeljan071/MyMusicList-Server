@@ -13,9 +13,9 @@
 
         // GET: api/Categories
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Category>>> GetCategories()
+        public ActionResult<IEnumerable<Category_Response_Model>> GetCategories()
         {
-            return Ok(await _repository.GetCategoriesAsync());
+            return _repository.GetCategoriesAsync().Result.Select(x=>x.CategoryResponse()).ToList();
         }
 
         // GET: api/Categories/5

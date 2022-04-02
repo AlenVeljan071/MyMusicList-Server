@@ -13,20 +13,20 @@
 
         // GET: api/Songs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Song>>> GetSongs()
+        public ActionResult<IEnumerable<Song_Response_Model>> GetSongs()
         {
-            return Ok(await _repository.GetSongsAsync());
+            return _repository.GetSongsAsync().Result.Select(x=>x.SongResponse()).ToList();
         }
 
         [HttpGet("favorite")]
-        public async Task<ActionResult<IEnumerable<Song>>> GetSongsFavorite()
+        public async Task<ActionResult<IEnumerable<Song_Response_Model>>> GetSongsFavorite()
         {
             return Ok(await _repository.GetSongsFavoriteAsync());
         }
 
         // GET: api/SongsByCategory
         [HttpGet("byCategory/{categoryId}")]
-        public async Task<ActionResult<IEnumerable<Song>>> GetSongsByCategory(string categoryId)
+        public async Task<ActionResult<IEnumerable<Song_Response_Model>>> GetSongsByCategory(string categoryId)
         {
             return Ok(await _repository.GetSongsByCategoryAsync(categoryId));
         }
